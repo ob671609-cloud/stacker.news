@@ -210,7 +210,10 @@ export default function ItemInfo ({
               )}
               {item && item.mine && !item.noteId && !item.isJob && !item.parentId &&
                 <CrosspostDropdownItem item={item} />}
-              {me && !item.mine && !item.deletedAt &&
+             {/* a downzap only moves an item down in the ranking, and a pinned
+                               item outranks the ranking, so the action would spend sats and
+                                                 change nothing. See #3245. */}
+             {me && !item.mine && !item.deletedAt && !isPinnedPost && !isPinnedSubReply &&
             (item.meDontLikeSats > meSats
               ? <DropdownItemUpVote item={item} />
               : <DontLikeThisDropdownItem item={item} />)}
